@@ -1,0 +1,171 @@
+{
+	"name": "Node Pop",
+	"protocol": "rest",
+	"basePath": "http://localhost:3000",
+	"publicPath": "/apiv1",
+     "schemas": {
+        "RegisterUser": {
+            "id": "RegisterUser",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Nombre del usuario.",
+                    "default": "Fulanito de tal"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email del usuario",
+                    "default": "name@domain.com"
+                },
+                 "password": {
+                    "type": "string",
+                    "description": "Contraseña del usuario.",
+                    "default": "123456"
+                },
+                "culture": {
+                    "type": "string",
+                    "description": "Idioma en el que se devolverán los mensajes de error ('es' o 'en').",
+                    "default": "en"
+                }
+
+            }
+        }
+     },
+	"resources" : {
+		"Users": {
+			"methods": {
+				"users": {
+					"name": "users",
+					"description": "Register user",
+					"httpMethod": "POST",
+					"path": "/users",
+                    "request": {
+                        "$ref": "RegisterUser"
+                    },
+				    "parameters": {
+                        "Content-Type": {
+                            "type": "string",
+                            "required": "true",
+                            "description": "Content type of the payload",
+                            "default": "application/x-www-form-urlencoded",
+                            "location": "header"
+                        }
+				    }
+				},
+                "authenticate": {
+					"name": "authenticate",
+					"description": "Get token",
+					"httpMethod": "GET",
+					"path": "/users/authenticate",
+				    "parameters": {
+                        "email":{
+                            "type":"string",
+                            "required":"true",
+                            "description":"Email del usuario",
+                            "location":"query"
+                        },
+                        "password":{
+                            "type":"string",
+                            "required":"true",
+                            "description":"Password del usuario",
+                            "location":"query"
+                        }
+				    }
+				}
+			}
+	    },
+        "Ads":{
+            "methods": {
+                "listAds":{
+                    "name": "listAds",
+					"description": "Listar los anuncios filtrados.",
+					"httpMethod": "GET",
+					"path": "/ads",
+                     "parameters": {
+                        "tag":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Etiqueta por la que se quiere filtrar",
+                            "location":"query"
+                        },
+                        "sale":{
+                            "type":"boolean",
+                            "required":"false",
+                            "description":"'true' para obtener los anuncios de venta, 'false' para los nuncios de búsqueda",
+                            "location":"query"
+                        },
+                        "name":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Filtro por nombre de artículo. El nombre del artículo comenzará por la cadena <name>",
+                            "location":"query"
+                        },
+                        "price":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Formato del filtro de precio: Para precios mayores que valor1: 'valor1-'. Para precios menores que valor 1: '-valor1'. Para precios entre valor1 y valor2: valor1-valor2",
+                            "location":"query"
+                        },
+                        "fields":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Campos de los anuncios que queremos recuperar. Formato: <field1>,<field2>",
+                            "location":"query"
+                        },
+                        "start":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Íncice de registro por el que queremos empezar a recibir los documentos",
+                            "location":"query"
+                        },
+                        "limit":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Número de registros que queremos que nos devuelvan",
+                            "location":"query"
+                        },
+                        "sort":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"Campo por el que queremos ordenar. En caso de ordenación ascendente, pondremos el nombre del campo. En caso de ordenación descendente, pondremos el nombre del campo precedido por un guión.",
+                            "location":"query"
+                        },
+                        "culture":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"'en' para Inglés, 'es' para Español.",
+                            "location":"query"
+                        },
+                        "token":{
+                            "type":"string",
+                            "required":"true",
+                            "description":"Token de autenticación.",
+                            "location":"query"
+                        }
+				    }
+                },
+                 "listTags":{
+                    "name": "listTags",
+					"description": "Listar las etiquetas",
+					"httpMethod": "GET",
+					"path": "/ads/tags",
+                    "parameters":{
+                         "culture":{
+                            "type":"string",
+                            "required":"false",
+                            "description":"'en' para Inglés, 'es' para Español.",
+                            "location":"query"
+                        },
+                        "token":{
+                            "type":"string",
+                            "required":"true",
+                            "description":"Token de autenticación.",
+                            "location":"query"
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
