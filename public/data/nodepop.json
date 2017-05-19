@@ -90,7 +90,7 @@
                             "location":"query"
                         },
                         "sale":{
-                            "type":"boolean",
+                            "type":"string",
                             "required":"false",
                             "description":"'true' para obtener los anuncios de venta, 'false' para los nuncios de búsqueda",
                             "location":"query"

@@ -1,0 +1,8 @@
+{
+    "title": "Nodepop Docs",
+    "address": "localhost",
+    "port": 3001,
+    "apiConfigDir": "./public/data/",
+    "debug": false,
+    "sessionSecret": "12345"
+}
